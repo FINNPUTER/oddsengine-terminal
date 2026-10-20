@@ -144,6 +144,9 @@ img.coin.sm{width:22px;height:22px;display:inline-block;vertical-align:middle}
 .mod .tfp{display:flex;justify-content:space-between;align-items:center;width:100%;box-sizing:border-box}
 .mod .tfp i{font-style:normal;color:var(--dim)}
 .mod .tfp b{font-weight:600}
+.mod .prevl{display:flex;gap:8px;align-items:center;margin-top:12px;font-family:var(--mono);font-size:11px;color:var(--dim2)}
+.mod .prevl b{font-weight:600}.mod .prevl b.up{color:#22f08a}.mod .prevl b.dn{color:#ff5d6c}
+.mod .prevl span:first-child{text-transform:uppercase;letter-spacing:.08em}
 .mod .tfp b.up{color:#22f08a}.mod .tfp b.dn{color:#ff5d6c}
 .mod h3{font-family:var(--disp);font-weight:700;font-size:15px;margin:0 0 4px}
 .mod p{color:var(--dim);font-size:13px;margin:0 0 14px;min-height:58px}
@@ -496,7 +499,7 @@ function fillStats(){
     [ (D.markets||[]).length, 'Markets live', 0],
     [ D.windows||0, 'Windows read', 0],
     [ D.resolved||0, 'Windows settled', 0],
-    [ ea? ea.win_rate*100 : null, 'Engine edge hit rate', 1, '%'] ];
+    [ D.picks!=null? D.picks : (ea? ea.n : null), 'Picks settled', 0] ];
   if(!el.dataset.b){ el.innerHTML=items.map((x,i)=>`<div class="stat"><div class="v" id="sv${i}">0</div><div class="l">${x[1]}</div></div>`).join(''); el.dataset.b=1; }
   items.forEach((x,i)=>countTo($('#sv'+i), x[0], x[2], x[3]||''));
 }
@@ -591,10 +594,11 @@ function fillMods(){
     return `<div class="card mod">
       <h3>${esc(m.name)}</h3><p>${esc(m.info)}</p>
       <div class="big ${roi==null?'wu':(roi>=0?'up':'dn')}">${roi==null?'warming up':(roi>=0?'+':'')+(roi*100).toFixed(1)+'%'}</div>
-      <div class="mono" style="font-size:11px;color:var(--dim2);letter-spacing:.08em;text-transform:uppercase">return on stake</div>
+      <div class="mono" style="font-size:11px;color:var(--dim2);letter-spacing:.08em;text-transform:uppercase">return on stake${m.since?' · since v2':''}</div>
       <div class="kv"><div><span>Trades</span>${a?a.n:0}</div><div><span>Hit rate</span>${a?pct(a.win_rate,1):'n/a'}</div>
         <div><span>Result</span>${a?money(a.pnl):'n/a'}</div><div><span>Fees paid</span>${a?'$'+a.fees.toFixed(2):'n/a'}</div></div>
       ${curveSvg(m.curve)}
+      ${m.prev?`<div class="prevl"><span>Before v2</span><b class="${m.prev.roi>=0?'up':'dn'}">${(m.prev.roi>=0?'+':'')+(m.prev.roi*100).toFixed(1)}%</b><span>${m.prev.n} picks</span></div>`:''}
       <div class="tfrow">${['5m','15m','4h'].map(tf=>{const q=m.tf&&m.tf[tf]; return `<span class="pill tfp"><i>${TFNAME[tf]}</i><b class="${q?(q.roi>=0?'up':'dn'):''}">${q?((q.roi>=0?'+':'')+(q.roi*100).toFixed(1)+'%'):'n/a'}</b></span>`;}).join('')}</div>
     </div>`;}).join('');
   spot(); eqMods();
