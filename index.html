@@ -106,7 +106,9 @@ h2{font-family:var(--disp);font-weight:700;font-size:clamp(20px,2.6vw,28px);marg
 .card:hover{border-color:rgba(34,240,138,.28)}
 
 .mk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(285px,1fr));gap:12px}
-.mk{padding:15px 15px 13px}
+.mk{padding:15px 15px 13px;display:flex;flex-direction:column}
+.mk .pm{margin-top:auto}
+.mk .chips{margin-bottom:12px}
 .mk-top{display:flex;align-items:center;gap:10px}
 .coin{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;font-family:var(--disp);font-weight:700;font-size:11px;color:#04100a;flex:none;letter-spacing:-.02em}
 .coin.l4{font-size:8.5px}
@@ -137,10 +139,16 @@ img.coin.sm{width:22px;height:22px;display:inline-block;vertical-align:middle}
 
 /* Modules */
 .mods{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
-.mod{padding:18px}
+.mod{padding:18px;display:flex;flex-direction:column}
+.mod .tfrow{margin-top:auto!important;padding-top:12px;display:grid!important;grid-template-columns:1fr;gap:5px}
+.mod .tfp{display:flex;justify-content:space-between;align-items:center;width:100%;box-sizing:border-box}
+.mod .tfp i{font-style:normal;color:var(--dim)}
+.mod .tfp b{font-weight:600}
+.mod .tfp b.up{color:#22f08a}.mod .tfp b.dn{color:#ff5d6c}
 .mod h3{font-family:var(--disp);font-weight:700;font-size:15px;margin:0 0 4px}
 .mod p{color:var(--dim);font-size:13px;margin:0 0 14px;min-height:58px}
-.mod .big{font-family:var(--disp);font-weight:800;font-size:30px;letter-spacing:-.02em}
+.mod .big{font-family:var(--disp);font-weight:800;font-size:30px;letter-spacing:-.02em;height:42px;display:flex;align-items:center;white-space:nowrap}
+.mod .big.wu{font-size:22px;color:var(--dim)}
 .mod .kv{display:grid;grid-template-columns:1fr 1fr;gap:8px 12px;margin-top:12px;font-family:var(--mono);font-size:12px}
 .mod .kv div span{display:block;color:var(--dim2);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase}
 .mod .tfrow{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap}
@@ -582,15 +590,22 @@ function fillMods(){
     const roi=a? a.roi:null;
     return `<div class="card mod">
       <h3>${esc(m.name)}</h3><p>${esc(m.info)}</p>
-      <div class="big ${roi==null?'':(roi>=0?'up':'dn')}">${roi==null?'warming up':(roi>=0?'+':'')+(roi*100).toFixed(1)+'%'}</div>
+      <div class="big ${roi==null?'wu':(roi>=0?'up':'dn')}">${roi==null?'warming up':(roi>=0?'+':'')+(roi*100).toFixed(1)+'%'}</div>
       <div class="mono" style="font-size:11px;color:var(--dim2);letter-spacing:.08em;text-transform:uppercase">return on stake</div>
       <div class="kv"><div><span>Trades</span>${a?a.n:0}</div><div><span>Hit rate</span>${a?pct(a.win_rate,1):'n/a'}</div>
         <div><span>Result</span>${a?money(a.pnl):'n/a'}</div><div><span>Fees paid</span>${a?'$'+a.fees.toFixed(2):'n/a'}</div></div>
       ${curveSvg(m.curve)}
-      <div class="tfrow">${['5m','15m','4h'].map(tf=>{const q=m.tf&&m.tf[tf]; return `<span class="pill">${TFNAME[tf]} ${q?((q.roi>=0?'+':'')+(q.roi*100).toFixed(1)+'%'):'n/a'}</span>`;}).join('')}</div>
+      <div class="tfrow">${['5m','15m','4h'].map(tf=>{const q=m.tf&&m.tf[tf]; return `<span class="pill tfp"><i>${TFNAME[tf]}</i><b class="${q?(q.roi>=0?'up':'dn'):''}">${q?((q.roi>=0?'+':'')+(q.roi*100).toFixed(1)+'%'):'n/a'}</b></span>`;}).join('')}</div>
     </div>`;}).join('');
-  spot();
+  spot(); eqMods();
 }
+function eqMods(){
+  const ps=[...document.querySelectorAll('#mods .mod p')]; if(!ps.length) return;
+  ps.forEach(p=>p.style.minHeight='');
+  const rows={}; ps.forEach(p=>{const k=Math.round(p.closest('.mod').offsetTop); (rows[k]=rows[k]||[]).push(p);});
+  Object.values(rows).forEach(r=>{ if(r.length<2) return; const h=Math.max(...r.map(p=>p.offsetHeight)); r.forEach(p=>p.style.minHeight=h+'px'); });
+}
+addEventListener('resize',()=>{clearTimeout(window._eqT); window._eqT=setTimeout(eqMods,120);});
 function fillCal(){
   const el=$('#cal'); if(!el) return;
   const C=D.calibration||{};
