@@ -132,6 +132,7 @@ img.coin.sm{width:22px;height:22px;display:inline-block;vertical-align:middle}
 .pill{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;padding:4px 9px;border-radius:999px;background:var(--card2);border:1px solid var(--line);color:var(--dim)}
 .pill.edge{background:rgba(34,240,138,.12);border-color:rgba(34,240,138,.4);color:var(--g2)}
 .pill.edge.dn{background:rgba(255,93,108,.12);border-color:rgba(255,93,108,.4);color:#ff9aa4}
+.pm{display:flex;align-items:center;justify-content:center;min-height:40px;margin-top:12px;border:1px solid rgba(34,240,138,.35);border-radius:10px;color:#22f08a;font-family:var(--mono);font-size:12.5px;text-decoration:none;transition:background .2s}.pm:hover{background:rgba(34,240,138,.1)}
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;min-height:24px}
 
 /* Modules */
@@ -529,7 +530,8 @@ function fillGrid(force){
       <div class="sp"></div>
       <div class="meter"><div class="u" style="width:50%"></div><div class="mm" style="left:50%"></div></div>
       <div class="mrow"><span>Engine <b class="eu">n/a</b> up</span><span>Market <b class="mu">n/a</b></span></div>
-      <div class="chips"></div></div>`).join('');
+      <div class="chips"></div>
+      <a class="pm" href="https://polymarket.com/event/${encodeURIComponent(m.slug)}" target="_blank" rel="noopener">Trade on Polymarket ↗</a></div>`).join('');
     g.dataset.k=key; spot();
   }
   ms.forEach(m=>{
