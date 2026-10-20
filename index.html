@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>OddsEngine Crypto Edition</title>
-<meta name="description" content="OddsEngine Crypto Edition. Up or Down markets for BTC, ETH, SOL, XRP, DOGE, BNB and HYPE, engine odds against the order book, every paper trade counted.">
+<meta name="description" content="OddsEngine Crypto Edition. Up or Down markets for BTC, ETH, SOL, XRP, DOGE, BNB and HYPE, engine odds against the order book, every pick tracked in public.">
 <meta name="theme-color" content="#030605">
 <meta property="og:title" content="OddsEngine Terminal">
-<meta property="og:description" content="OddsEngine Crypto Edition. Engine odds against the order book, every paper trade counted.">
+<meta property="og:description" content="OddsEngine Crypto Edition. Engine odds against the order book, every pick tracked in public.">
 <meta property="og:image" content="https://terminal.oddsengine.live/robot.webp">
 <link rel="icon" href="icon-180.png">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -254,7 +254,7 @@ footer .wrap{border-top:1px solid var(--line);padding-top:20px;display:flex;gap:
 
 <footer>
   <div class="wrap">
-    <div>Paper record. Nothing here is a trade or financial advice. Prices from the Polymarket order book, taker fee included. Markets settle on the Chainlink average for the window; the engine tracks it with Hyperliquid prices.</div>
+    <div>Tracked picks, not orders. Nothing here is financial advice. Prices from the Polymarket order book, taker fee included. Markets settle on the Chainlink average for the window; the engine tracks it with Hyperliquid prices.</div>
     <div><a href="https://public.oddsengine.live">App</a> · <a href="https://t.me/OddsEngine">Telegram</a> · <a href="https://x.com/OddsEngine">X</a></div>
   </div>
 </footer>
@@ -314,7 +314,7 @@ function soon(){
     <div class="rv">
       <span class="eyebrow"><b>●</b> OddsEngine Terminal</span>
       <h1><span class="shiny">The Crypto Edition is coming.</span></h1>
-      <p class="lead">OddsEngine takes on crypto. Up or Down markets on seven coins, in windows of five minutes, fifteen minutes and four hours. Engine odds against the order book, every paper trade counted in public.</p>
+      <p class="lead">OddsEngine takes on crypto. Up or Down markets on seven coins, in windows of five minutes, fifteen minutes and four hours. Engine odds against the order book, every pick tracked in public.</p>
       <div style="display:flex;gap:10px;flex-wrap:wrap">
         <a class="btn btn-g" href="https://t.me/OddsEngine">Get notified on Telegram</a>
         <a class="btn" href="https://x.com/OddsEngine">Follow on X</a>
@@ -339,7 +339,7 @@ function shell(){
     <div class="rv">
       <span class="eyebrow"><b>●</b> Live · Polymarket Up or Down</span>
       <h1><span class="shiny">OddsEngine Crypto Edition.</span></h1>
-      <p class="lead">Seven coins, three timeframes, one question each window: up or down. The engine prices every window on its own and puts its number next to the order book. Five modules trade it on paper, and every result is counted.</p>
+      <p class="lead">Seven coins, three timeframes, one question each window: up or down. The engine prices every window on its own and puts its number next to the order book. Five modules pick a side every window, and every result is counted.</p>
       <div class="stats" id="stats"></div>
     </div>
     <div class="hero-art hero-vid rv"><video class="hv" src="https://d2ol7oe51mr4n9.cloudfront.net/user_3JTRZAxrDiNnMw8N7r4orqaTziL/29e70b6d-0b9d-4f15-a758-f46d2dfae963.mp4" autoplay muted loop playsinline preload="auto" onplaying="this.classList.add('on')" onerror="this.parentNode.classList.add('fb')"></video><img src="robot.webp" alt="The OddsEngine robot"></div>
@@ -379,7 +379,7 @@ function shell(){
 
   <section id="modules">
     <div class="sec-h rv"><div><span class="eyebrow">Modules</span><h2>Five ways to play it, five records</h2>
-    <p class="sub">Each module buys at the real ask with the real fee and holds to the result. Pick the one that fits you. Paper trades, ten shares each.</p></div></div>
+    <p class="sub">Every pick is logged at the real ask with the real fee and held to the result. Ten shares per pick. Find the one that fits you.</p></div></div>
     <div class="mods" id="mods"></div>
   </section>
 
@@ -390,7 +390,7 @@ function shell(){
   </section>
 
   <section id="feed">
-    <div class="sec-h rv"><div><span class="eyebrow">Feed</span><h2>Every paper trade, settled</h2></div></div>
+    <div class="sec-h rv"><div><span class="eyebrow">Feed</span><h2>Every pick, settled</h2></div></div>
     <div class="card feed" id="feedBox"></div>
   </section>
 
