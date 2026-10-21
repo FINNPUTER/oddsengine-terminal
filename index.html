@@ -241,6 +241,7 @@ footer .wrap{border-top:1px solid var(--line);padding-top:20px;display:flex;gap:
   h1{font-size:34px}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+.tfp.tfna{opacity:.5}.tfp.tfna b{font-weight:400;color:var(--dim2)}
 </style>
 </head>
 <body>
@@ -595,11 +596,11 @@ function fillMods(){
       <h3>${esc(m.name)}</h3><p>${esc(m.info)}</p>
       <div class="big ${roi==null?'wu':(roi>=0?'up':'dn')}">${roi==null?'warming up':(roi>=0?'+':'')+(roi*100).toFixed(1)+'%'}</div>
       <div class="mono" style="font-size:11px;color:var(--dim2);letter-spacing:.08em;text-transform:uppercase">return on stake${m.since?' · since v2':''}</div>
-      <div class="kv"><div><span>Trades</span>${a?a.n:0}</div><div><span>Hit rate</span>${a?pct(a.win_rate,1):'n/a'}</div>
-        <div><span>Result</span>${a?money(a.pnl):'n/a'}</div><div><span>Fees paid</span>${a?'$'+a.fees.toFixed(2):'n/a'}</div></div>
+      <div class="kv"><div><span>Trades</span>${a?a.n:0}</div><div><span>Hit rate</span>${a?pct(a.win_rate,1):'none yet'}</div>
+        <div><span>Result</span>${a?money(a.pnl):'$0.00'}</div><div><span>Fees paid</span>${a?'$'+a.fees.toFixed(2):'$0.00'}</div></div>
       ${curveSvg(m.curve)}
       ${m.prev?`<div class="prevl"><span>Before v2</span><b class="${m.prev.roi>=0?'up':'dn'}">${(m.prev.roi>=0?'+':'')+(m.prev.roi*100).toFixed(1)}%</b><span>${m.prev.n} picks</span></div>`:''}
-      <div class="tfrow">${['5m','15m','4h'].map(tf=>{const q=m.tf&&m.tf[tf]; return `<span class="pill tfp"><i>${TFNAME[tf]}</i><b class="${q?(q.roi>=0?'up':'dn'):''}">${q?((q.roi>=0?'+':'')+(q.roi*100).toFixed(1)+'%'):'n/a'}</b></span>`;}).join('')}</div>
+      <div class="tfrow">${['5m','15m','4h'].map(tf=>{const q=m.tf&&m.tf[tf]; return `${(()=>{const off=!q&&tf==='5m'&&/4 hour windows only/i.test(m.info||'');return `<span class="pill tfp${q?'':' tfna'}"><i>${TFNAME[tf]}</i><b class="${q?(q.roi>=0?'up':'dn'):''}">${q?((q.roi>=0?'+':'')+(q.roi*100).toFixed(1)+'%'):(off?'not traded':'no trades yet')}</b></span>`;})()}`;}).join('')}</div>
     </div>`;}).join('');
   spot(); eqMods();
 }
