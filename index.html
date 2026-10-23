@@ -180,6 +180,11 @@ img.coin.sm{width:22px;height:22px;display:inline-block;vertical-align:middle}
 .mod .big.wu{font-size:22px;color:var(--dim)}
 .mod .kv{display:grid;grid-template-columns:1fr 1fr;gap:8px 12px;margin-top:12px;font-family:var(--mono);font-size:12px}
 .mod .kv div span{display:block;color:var(--dim2);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase}
+.stake{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:14px}
+.stake div{padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--card2)}
+.stake b{display:block;font-family:var(--mono);font-size:15px;color:var(--tx)}
+.stake span{font-size:12px;color:var(--dim);line-height:1.3}
+@media (max-width:760px){.stake{grid-template-columns:1fr 1fr}}
 .mod .tfrow{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap}
 .mod svg{display:block;width:100%;height:42px;margin-top:12px}
 
@@ -421,7 +426,8 @@ function shell(){
 
   <section id="modules">
     <div class="sec-h rv"><div><span class="eyebrow">Modules</span><h2>Five ways to play it, five records</h2>
-    <p class="sub">Every pick is logged at the real ask with the real fee and held to the result. Ten shares per pick. Find the one that fits you.</p></div></div>
+    <p class="sub">Every pick is logged at the real ask with the real fee and held to the result. Find the one that fits you.</p>
+    <div class="stake"><div><b>10 shares</b><span>per pick</span></div><div><b>Under $10</b><span>put in per pick: 10 × the price, plus the fee</span></div><div><b>$1.00</b><span>paid per share if the side wins</span></div><div><b>Paper</b><span>tracked picks at real prices, no real orders</span></div></div></div></div>
     <div class="mods" id="mods"></div>
   </section>
 
@@ -637,6 +643,7 @@ function fillMods(){
       <div class="big ${roi==null?'wu':(roi>=0?'up':'dn')}">${roi==null?'warming up':(roi>=0?'+':'')+(roi*100).toFixed(1)+'%'}</div>
       <div class="mono" style="font-size:11px;color:var(--dim2);letter-spacing:.08em;text-transform:uppercase">return on stake${m.since?' · since v2':''}</div>
       <div class="kv"><div><span>Trades</span>${a?a.n:0}</div><div><span>Hit rate</span>${a?pct(a.win_rate,1):'none yet'}</div>
+        <div><span>Total staked</span>${a?'$'+a.cost.toFixed(2):'$0.00'}</div><div><span>Avg per pick</span>${a&&a.n?'$'+(a.cost/a.n).toFixed(2):'n/a'}</div>
         <div><span>Result</span>${a?money(a.pnl):'$0.00'}</div><div><span>Fees paid</span>${a?'$'+a.fees.toFixed(2):'$0.00'}</div></div>
       ${curveSvg(m.curve)}
       ${m.prev?`<div class="prevl"><span>Before v2</span><b class="${m.prev.roi>=0?'up':'dn'}">${(m.prev.roi>=0?'+':'')+(m.prev.roi*100).toFixed(1)}%</b><span>${m.prev.n} picks</span></div>`:''}
@@ -672,7 +679,7 @@ function fillFeed(){
   el.innerHTML=t.slice(0,25).map(x=>`<div class="row">
     <span class="t hide-s">${ago(x.end)} ago</span>
     <span style="display:flex;align-items:center;gap:7px">${logo(x.a,'sm')}<span class="mono" style="font-size:11.5px">${x.a.toUpperCase()}</span><span class="mono" style="font-size:11px;color:var(--dim2)">${x.tf}</span></span>
-    <span>${esc(modName(x.m))} · <b>${x.side.toUpperCase()}</b> at ${cents(x.price)}${x.p!=null?` <span class="hide-s" style="color:var(--dim2)">(engine ${pct(x.p)})</span>`:''}</span>
+    <span>${esc(modName(x.m))} · <b>${x.side.toUpperCase()}</b> at ${cents(x.price)}${x.cost!=null?` · <span class="mono" style="font-size:11.5px">$${x.cost.toFixed(2)} in</span>`:''}${x.p!=null?` <span class="hide-s" style="color:var(--dim2)">(engine ${pct(x.p)})</span>`:''}</span>
     <span class="res ${x.won?'w':'l'}">${x.won?'WON':'LOST'}</span>
     <span class="mono hide-s ${x.pnl>=0?'up':'dn'}" style="text-align:right">${money(x.pnl)}</span></div>`).join('');
 }
