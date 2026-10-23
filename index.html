@@ -269,11 +269,76 @@ footer .wrap{border-top:1px solid var(--line);padding-top:20px;display:flex;gap:
   .row{grid-template-columns:78px 1fr 58px;gap:8px;padding:11px 12px}
   .row .hide-s{display:none}
   .nav .btn{display:none}
-  .nav .btn-t{display:inline-flex;padding:8px 12px;font-size:12px}
+  .nav .btn-t{display:inline-flex;padding:8px 12px;font-size:12px;margin-left:auto}
+}
+@media (max-width:440px){
+  .brand small{display:none}
+  .nav .live{display:none}
   h1{font-size:34px}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
 .tfp.tfna{opacity:.5}.tfp.tfna b{font-weight:400;color:var(--dim2)}
+/* 2.35 sentiment + above */
+.sent-top{display:grid;grid-template-columns:1fr 1.4fr;gap:12px;margin-bottom:12px}
+.sent-mood .big{font-family:var(--disp);font-size:30px;margin:10px 0 12px}
+.sent-mood .big.up{color:var(--g)} .sent-mood .big.dn{color:var(--red)}
+.note{font-size:12px;color:var(--dim2);margin-top:10px}
+.mood{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:8px;font-family:var(--mono);font-size:10.5px;color:var(--dim2);margin:10px 0 6px}
+.mood .mt{position:relative;height:8px;border-radius:99px;background:linear-gradient(90deg,rgba(255,93,108,.18),rgba(255,255,255,.05),rgba(34,240,138,.18))}
+.mood .mt b{position:absolute;left:50%;top:-3px;width:2px;height:14px;background:rgba(255,255,255,.5);border-radius:2px}
+.mood .mt i{position:absolute;top:0;bottom:0;border-radius:99px;transition:width .6s}
+.mood .mt i.u{background:linear-gradient(90deg,#14c46f,var(--g))} .mood .mt i.d{background:linear-gradient(270deg,#d84050,var(--red))}
+.dr2{display:grid;grid-template-columns:72px 1fr;gap:10px;align-items:center;margin-top:10px;font-family:var(--mono);font-size:11.5px}
+.dr2 .tf{color:var(--dim)} .pair{display:grid;gap:5px}
+.row2{display:grid;grid-template-columns:56px 1fr 46px;gap:8px;align-items:center;color:var(--dim)}
+.row2 b{text-align:right;color:var(--tx)}
+.row2 .bar{position:relative;height:7px;border-radius:99px;background:rgba(255,93,108,.45);overflow:hidden}
+.row2 .bar i{position:absolute;left:0;top:0;bottom:0;border-radius:99px}
+.row2 .bar .bu{background:linear-gradient(90deg,#14c46f,var(--g))} .row2 .bar .bm{background:linear-gradient(90deg,#9fb5a9,#e6efe9)}
+.sent-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(285px,1fr));gap:12px;margin-bottom:12px}
+.sc{padding:15px}
+.kv2{display:grid;grid-template-columns:1fr 1fr;gap:10px 12px;margin-top:8px}
+.kv2 div{display:grid;gap:1px;cursor:help}
+.kv2 span{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim2)}
+.kv2 b{font-family:var(--mono);font-size:14px;color:var(--tx)}
+.kv2 em{font-style:normal;font-family:var(--mono);font-size:10.5px;color:var(--dim)}
+.kv2 .up,.srow .up,.opt-rec .up{color:var(--g)} .kv2 .dn,.srow .dn,.opt-rec .dn{color:var(--red)}
+.pmline{display:flex;flex-wrap:wrap;gap:6px 12px;margin-top:12px;padding-top:10px;border-top:1px solid var(--line);font-family:var(--mono);font-size:11px;color:var(--dim)}
+.pmline b{color:var(--tx);font-weight:600}
+.split-h{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+.split-h h3{margin:0;font-size:16px}
+.srow{display:grid;grid-template-columns:24px auto 1fr auto auto auto;align-items:center;gap:10px 14px;padding:10px 4px;border-top:1px solid var(--line);font-size:13px;color:var(--dim);text-decoration:none}
+.srow:first-child{border-top:0}
+.srow b{color:var(--tx)}
+.srow .gap{font-family:var(--mono);font-weight:700;padding:3px 9px;border-radius:99px;background:rgba(255,255,255,.06)}
+.srow .gap.up{background:rgba(34,240,138,.12)} .srow .gap.dn{background:rgba(255,93,108,.12)}
+a.srow:hover{background:rgba(34,240,138,.05)}
+.sent-split .srow{grid-template-columns:24px 80px 1fr 1fr auto}
+.opt-rec{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-bottom:12px}
+.opt-rec div{padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+.opt-rec b{display:block;font-family:var(--mono);font-size:17px;color:var(--tx)}
+.opt-rec span{font-size:12px;color:var(--dim)}
+.opt-top{margin-bottom:12px}
+.vb{font-family:var(--mono);font-size:10.5px;padding:3px 8px;border-radius:99px;border:1px solid var(--line2)}
+.vb.k{color:#8fd3ff;border-color:rgba(143,211,255,.35)} .vb.p{color:#b8a6ff;border-color:rgba(167,139,250,.4)}
+.opt-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:12px}
+.oe{padding:15px}
+.oe-h{display:flex;align-items:center;gap:10px}
+.oe-meta{display:flex;gap:16px;flex-wrap:wrap;margin:10px 0 6px;font-family:var(--mono);font-size:11px;color:var(--dim)}
+.oe-meta b{color:var(--tx)}
+.oe-r{display:grid;grid-template-columns:1fr 1.3fr .7fr .9fr;gap:8px;align-items:center;padding:6px 0;border-top:1px solid var(--line);font-family:var(--mono);font-size:12px;color:var(--dim)}
+.oe-r.hd{border-top:0;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim2)}
+.oe-r span:nth-child(2){display:flex;align-items:center;gap:8px;color:var(--tx)}
+.pbar{display:inline-block;position:relative;width:46px;height:6px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden}
+.pbar i{position:absolute;left:0;top:0;bottom:0;background:var(--g);border-radius:99px}
+.oe-r .gap{color:var(--g);font-weight:700} .oe-r .mute{color:var(--dim2)}
+@media (max-width:760px){
+  .sent-top{grid-template-columns:1fr}
+  .opt-rec{grid-template-columns:1fr 1fr}
+  .srow,.sent-split .srow{display:flex;flex-wrap:wrap;gap:6px 12px;font-size:12.5px}
+  .srow .gap{margin-left:auto}
+  .opt-grid{grid-template-columns:1fr}
+}
 </style>
 </head>
 <body>
@@ -286,7 +351,7 @@ footer .wrap{border-top:1px solid var(--line);padding-top:20px;display:flex;gap:
     ODDSENGINE <small>TERMINAL</small>
   </a>
   <nav class="links">
-    <a href="#live">Live</a><a href="#markets">Markets</a><a href="#modules">Modules</a><a href="#vs">Engine vs market</a><a href="#feed">Feed</a><a href="#how">How it works</a>
+    <a href="#live">Live</a><a href="#markets">Markets</a><a href="#sentiment">Sentiment</a><a href="#modules">Modules</a><a href="#above">Above X</a><a href="#vs">Engine vs market</a><a href="#feed">Feed</a><a href="#how">How it works</a>
   </nav>
   <span class="live off" id="live"><span class="d"></span><span id="liveTxt">connecting</span></span>
   <a class="btn btn-t" href="https://app.torchpad.fun/trade/robinhood/0x9c87B4cfa21266d1638f437c96dBe1012CB81111" target="_blank" rel="noopener">Get $ODDS</a>
@@ -346,7 +411,7 @@ function setLive(ok,t){ $('#live').classList.toggle('off',!ok); $('#liveTxt').te
 function render(){
   const mode = D && D.enabled ? 'full' : 'soon';
   document.querySelector('.nav .links').style.visibility = mode==='full'?'visible':'hidden';
-  if(BUILT!==mode){ $('#view').innerHTML = mode==='full'? shell() : soon(); BUILT=mode; bindSeg(); reveal(); spot(); }
+  if(BUILT!==mode){ $('#view').innerHTML = mode==='full'? shell() : soon(); BUILT=mode; bindSeg(); reveal(); spot(); if(mode==='full'){ fillSent(); fillOpt(); } }
   if(mode==='full'){ fill(); }
   if(ADMIN && mode==='full' && !document.querySelector('.admin-bar')){
     const b=document.createElement('div'); b.className='admin-bar'; b.textContent='Admin preview. Holders see this once the crypto switch is on.'; document.body.appendChild(b);
@@ -424,12 +489,16 @@ function shell(){
     <div class="mk-grid" id="grid"></div>
   </section>
 
+  ${sentShell()}
+
   <section id="modules">
     <div class="sec-h rv"><div><span class="eyebrow">Modules</span><h2>Five ways to play it, five records</h2>
     <p class="sub">Every pick is logged at the real ask with the real fee and held to the result. Find the one that fits you.</p>
     <div class="stake"><div><b>10 shares</b><span>per pick</span></div><div><b>Under $10</b><span>put in per pick: 10 × the price, plus the fee</span></div><div><b>$1.00</b><span>paid per share if the side wins</span></div><div><b>Paper</b><span>tracked picks at real prices, no real orders</span></div></div></div></div>
     <div class="mods" id="mods"></div>
   </section>
+
+  ${optShell()}
 
   <section id="vs">
     <div class="sec-h rv"><div><span class="eyebrow">Engine vs market</span><h2>Who called it better?</h2>
@@ -700,7 +769,101 @@ document.addEventListener('click',e=>{
     s.animate([{transform:`translate(0,0) rotate(${a+Math.PI/2}rad)`,opacity:1},{transform:`translate(${Math.cos(a)*26}px,${Math.sin(a)*26}px) rotate(${a+Math.PI/2}rad)`,opacity:0}],{duration:420,easing:'cubic-bezier(.2,.8,.2,1)'}).onfinish=()=>s.remove(); }
 });
 
-load(); setInterval(load,4000);
+/* ── 2.35: Sentiment (exchanges) and Above X (options vs markets) ───────── */
+let SENT=null, OPT=null;
+async function loadSent(){ try{ const r=await fetch(API+'/v1/sentiment',{headers:ADMIN?{'X-OddsEngine-Admin':ADMIN}:{},cache:'no-store'}); if(r.ok){ SENT=await r.json(); fillSent(); } }catch(e){} }
+async function loadOpt(){ try{ const r=await fetch(API+'/v1/options',{headers:ADMIN?{'X-OddsEngine-Admin':ADMIN}:{},cache:'no-store'}); if(r.ok){ OPT=await r.json(); fillOpt(); } }catch(e){} }
+const sgn=(x,d=1)=>x==null?'n/a':(x>=0?'+':'')+(x*100).toFixed(d)+'%';
+function usdShort(v){ if(v==null) return 'n/a'; const a=Math.abs(v); return '$'+(a>=1e9?(v/1e9).toFixed(2)+'B':a>=1e6?(v/1e6).toFixed(1)+'M':a>=1e3?(v/1e3).toFixed(0)+'K':v.toFixed(0)); }
+function moodBar(m){ const v=m==null?0:Math.max(-1,Math.min(1,m)); const w=Math.abs(v)*50;
+  return `<div class="mood"><span class="ml">Down</span><div class="mt"><i class="${v>=0?'u':'d'}" style="${v>=0?'left:50%':'right:50%'};width:${w}%"></i><b></b></div><span class="mr">Up</span></div>`; }
+function tone(v,lo,hi){ if(v==null) return ''; return v>hi?'up':v<lo?'dn':''; }
+function sentShell(){ return `
+  <section id="sentiment">
+    <div class="sec-h rv"><div><span class="eyebrow"><b>●</b> Sentiment</span><h2>What the exchanges say</h2>
+    <p class="sub">Polymarket shows what the crowd bets. The price is made on the exchanges. Every minute the engine reads futures, order books, aggressive buying and liquidations on Hyperliquid, OKX, Coinbase, Kraken and Binance, and puts it next to the Polymarket crowd. Readings only: none of this changes a pick until the data proves it helps.</p></div></div>
+    <div class="sent-top">
+      <div class="card sent-mood"><span class="eyebrow">Exchange mood, all coins</span><div class="big" id="smVal">n/a</div>${moodBar(null)}<p class="note" id="smNote">Order books, aggressive buyers and liquidations together.</p></div>
+      <div class="card sent-crowd"><span class="eyebrow">Polymarket crowd vs engine</span><div id="scRows"></div><p class="note">Average chance for Up across all seven coins.</p></div>
+    </div>
+    <div class="sent-grid" id="sentGrid"></div>
+    <div class="card sent-split"><div class="split-h"><h3>Where the crowd and the engine split</h3><span class="note">Biggest gaps right now</span></div><div id="splits"></div></div>
+  </section>`; }
+function optShell(){ return `
+  <section id="above">
+    <div class="sec-h rv"><div><span class="eyebrow"><b>●</b> Above X</span><h2>Options market vs Polymarket and Kalshi</h2>
+    <p class="sub">"Will Bitcoin be above $82,000 on Friday?" Professionals price this exact question on the options market every second. The engine turns Deribit's option prices into a chance for every strike and puts it next to Polymarket and Kalshi. Where the gap beats the price plus the fee, it takes a paper pick of 10 shares and settles it on the real result.</p></div></div>
+    <div class="opt-rec" id="optRec"></div>
+    <div class="card opt-top"><div class="split-h"><h3>Biggest gaps right now</h3><span class="note" id="optUpd"></span></div><div id="optTop"></div></div>
+    <div class="opt-grid" id="optGrid"></div>
+  </section>`; }
+function fillSent(){
+  const S=SENT; if(!S||!S.enabled||!$('#sentGrid')) return;
+  const m=S.exchange_mood; const mv=$('#smVal');
+  if(mv){ mv.textContent=m==null?'n/a':(m>0.15?'Leaning Up':m<-0.15?'Leaning Down':'Balanced'); mv.className='big '+(m>0.15?'up':m<-0.15?'dn':''); }
+  const mb=document.querySelector('.sent-mood .mood'); if(mb) mb.outerHTML=moodBar(m);
+  const cr=S.crowd||{};
+  $('#scRows').innerHTML=['5m','15m','4h'].map(tf=>{const c=cr[tf]||{};
+    return `<div class="dr2"><span class="tf">${TFNAME[tf]}</span>
+      <div class="pair"><div class="row2"><span>Crowd</span><div class="bar"><i class="bm" style="width:${(c.crowd_up??.5)*100}%"></i></div><b>${pct(c.crowd_up)}</b></div>
+      <div class="row2"><span>Engine</span><div class="bar"><i class="bu" style="width:${(c.engine_up??.5)*100}%"></i></div><b>${pct(c.engine_up)}</b></div></div></div>`;}).join('');
+  const order=['btc','eth','sol','xrp','doge','bnb','hype'];
+  $('#sentGrid').innerHTML=order.map(a=>{const c=(S.coins||{})[a]; if(!c) return '';
+    const pm=(c.polymarket||{})['15m']||{};
+    const lsCh=c.long_short!=null&&c.long_short_1h_ago!=null?c.long_short-c.long_short_1h_ago:null;
+    return `<div class="card sc">
+      <div class="mk-top">${logo(a,'')}<div class="mk-name">${esc((D&&D.assets||[]).find(x=>x.id===a)?.name||a.toUpperCase())}<small>${a.toUpperCase()} · ${fmtPx(c.price)}</small></div></div>
+      ${moodBar(c.mood)}
+      <div class="kv2">
+        <div title="What longs pay shorts on perpetual futures, per year. High means the crowd is heavily long."><span>Funding</span><b class="${tone(c.funding_annual,-0.02,0.25)}">${sgn(c.funding_annual,1)}</b><em>per year</em></div>
+        <div title="Money in open futures positions, Hyperliquid and OKX."><span>Open interest</span><b>${usdShort(c.oi_usd)}</b><em class="${tone(c.oi_chg_1h,-0.005,0.005)}">${sgn(c.oi_chg_1h,1)} 1h</em></div>
+        <div title="Accounts long for every account short, OKX."><span>Long / short</span><b>${c.long_short==null?'n/a':c.long_short.toFixed(2)}</b><em>${lsCh==null?'':(lsCh>=0?'+':'')+lsCh.toFixed(2)+' 1h'}</em></div>
+        <div title="Share of volume from buyers who hit the ask, OKX futures."><span>Aggressive buyers</span><b class="${tone(c.taker_buy_15m,0.45,0.55)}">${pct(c.taker_buy_15m)}</b><em>15 min</em></div>
+        <div title="Money waiting to buy minus money waiting to sell, within 0.1% of the price."><span>Book pressure</span><b class="${tone(c.book_pressure,-0.1,0.1)}">${c.book_pressure==null?'n/a':(c.book_pressure>=0?'+':'')+Math.round(c.book_pressure*100)}</b><em>${(c.book_venues||[]).length+1} books</em></div>
+        <div title="Positions force-closed in the last hour, OKX."><span>Liquidated 1h</span><b><span class="dn">${usdShort(c.liq_long_1h)}</span> <span class="up">${usdShort(c.liq_short_1h)}</span></b><em>longs · shorts</em></div>
+      </div>
+      <div class="pmline"><span>Polymarket 15m</span><b>Crowd ${pct(pm.crowd_up)} Up</b><b>Engine ${pct(pm.engine_up)}</b></div>
+    </div>`;}).join('');
+  const sp=S.splits||[];
+  $('#splits').innerHTML=sp.length? sp.slice(0,6).map(x=>`<div class="srow">${logo(x.coin,'sm')}<span class="mono">${x.coin.toUpperCase()} ${x.tf}</span>
+     <span>Crowd <b>${pct(x.crowd_up)}</b> Up</span><span>Engine <b>${pct(x.engine_up)}</b></span>
+     <span class="gap ${x.gap>=0?'up':'dn'}">${x.gap>=0?'+':''}${Math.round(x.gap*100)} pts</span></div>`).join('')
+     : '<div class="empty">No open windows right now.</div>';
+}
+function fillOpt(){
+  const O=OPT; if(!O||!O.enabled||!$('#optGrid')) return;
+  const r=(O.record||{}).all;
+  const cal=(O.calibration||[]);
+  $('#optRec').innerHTML=`
+    <div><b>${r?r.n:0}</b><span>picks settled</span></div>
+    <div><b>${r?pct(r.win_rate,1):'n/a'}</b><span>hit rate</span></div>
+    <div><b class="${r?(r.pnl>=0?'up':'dn'):''}">${r?money(r.pnl):'$0.00'}</b><span>result${r?' on $'+r.cost.toFixed(2)+' staked':''}</span></div>
+    <div><b>${O.open_picks??0}</b><span>picks still open</span></div>
+    <div><b>${cal.length?cal.map(c=>c.options_brier<c.market_brier?'Options':'Market').join(' · '):'collecting'}</b><span>${cal.length?'more accurate at '+cal.map(c=>c.hours_before+'h').join(' · ')+' before close':'who is more accurate'}</span></div>`;
+  const ago=O.updated?Math.round((Date.now()/1000-O.updated)/60):null;
+  $('#optUpd').textContent=ago==null?'':'updated '+(ago<1?'just now':ago+' min ago');
+  const venue=v=>v==='kalshi'?'<span class="vb k">Kalshi</span>':'<span class="vb p">Polymarket</span>';
+  const kfmt=k=>'$'+Math.round(k).toLocaleString('en-US');
+  const tleft=h=>h<1?Math.round(h*60)+' min':h<48?h.toFixed(h<10?1:0)+' h':(h/24).toFixed(1)+' days';
+  const top=O.top||[];
+  $('#optTop').innerHTML=top.length? top.map(t=>`<a class="srow" href="${esc(t.url||'#')}" target="_blank" rel="noopener">${logo(t.coin,'sm')}${venue(t.venue)}
+     <span>${t.coin.toUpperCase()} above <b>${kfmt(t.K)}</b> · ${tleft(t.tau_h)}</span>
+     <span>Options <b>${pct(t.side==='yes'?t.p:1-t.p)}</b> ${t.side==='yes'?'Yes':'No'}</span>
+     <span>Market <b>${cents(t.side==='yes'?t.yes_ask:t.no_ask)}</b></span>
+     <span class="gap up">+${Math.round(t.edge*100)}¢</span></a>`).join('')
+     : '<div class="empty">No gap bigger than the fee right now. That is the normal case: most of the time the markets agree with the options market.</div>';
+  $('#optGrid').innerHTML=(O.events||[]).slice(0,8).map(g=>`<div class="card oe">
+     <div class="oe-h">${logo(g.coin,'')}<div class="mk-name">${esc(g.title||'')}<small>${g.venue==='kalshi'?'Kalshi':'Polymarket'} · settles in ${tleft(g.tau_h)} · ${g.source==='binance_usdt'?'Binance BTC/USDT':'CF Benchmarks index'}</small></div></div>
+     <div class="oe-meta"><span>Options volatility <b>${pct(g.iv)}</b></span><span>Forward <b>${fmtPx(g.fwd)}</b></span></div>
+     <div class="oe-t"><div class="oe-r hd"><span>Above</span><span>Options</span><span>Market</span><span>Gap</span></div>
+     ${g.rows.slice(0,9).map(x=>{const ey=x.edge_yes??-1,en=x.edge_no??-1;const best=Math.max(ey,en);
+       return `<div class="oe-r"><span class="mono">${kfmt(x.K)}</span><span><i class="pbar"><i style="width:${(x.p||0)*100}%"></i></i>${pct(x.p)}</span><span>${cents(x.mid)}</span>
+       <span class="${best>=(O.edge||.05)?'gap up':'mute'}">${best>=(O.edge||.05)?(ey>=en?'Yes ':'No ')+'+'+Math.round(best*100)+'¢':'none'}</span></div>`;}).join('')}
+     </div></div>`).join('') || '<div class="card empty">Reading the next markets.</div>';
+}
+setInterval(loadSent,15000); setInterval(loadOpt,60000);
+
+load(); setInterval(load,4000); setTimeout(()=>{loadSent();loadOpt();},600);
 </script>
 <script>
 /* Torch referral: every Torch link first passes our referral, then lands where it pointed */
