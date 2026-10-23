@@ -62,6 +62,8 @@ main,header,footer{position:relative;z-index:1}
 .btn:hover{transform:translateY(-1px)}
 .btn-g{background:var(--g);color:#02130a;border-color:transparent;box-shadow:0 0 0 rgba(34,240,138,0)}
 .btn-g:hover{box-shadow:0 8px 30px rgba(34,240,138,.35)}
+.btn-t{border-color:rgba(34,240,138,.45);color:var(--g)}
+.btn-t:hover{box-shadow:0 8px 30px rgba(34,240,138,.18)}
 
 /* Hero */
 .hero{display:grid;grid-template-columns:1.25fr .75fr;gap:28px;align-items:center;padding:54px 0 22px}
@@ -124,7 +126,31 @@ img.coin.sm{width:22px;height:22px;display:inline-block;vertical-align:middle}
 .px .now{font-size:18px;font-weight:700}
 .px .dl{font-size:12px}
 .up{color:var(--g)} .dn{color:var(--red)}
-.px .from{margin-left:auto;font-size:11px;color:var(--dim2)}
+.px .state{margin-left:auto;font-size:11px;font-weight:700;padding:3px 8px;border-radius:99px}
+.px .state.up{color:var(--g2);background:rgba(34,240,138,.12)}
+.px .state.dn{color:#ff9aa4;background:rgba(255,93,108,.12)}
+.beat{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11.5px;color:var(--dim)}
+.beat::before{content:"";width:16px;border-top:1.5px dashed rgba(255,255,255,.55)}
+.beat b{color:var(--tx);font-weight:700}
+.duo{display:grid;gap:7px;margin-top:2px}
+.dr{display:grid;grid-template-columns:82px 1fr 64px;align-items:center;gap:8px;font-family:var(--mono);font-size:11.5px}
+.dr .who{color:var(--dim)}
+.dr b{text-align:right;color:var(--tx);font-weight:700}
+.dr .bar{position:relative;height:8px;border-radius:99px;background:rgba(255,93,108,.5);overflow:hidden}
+.dr .bar i{position:absolute;left:0;top:0;bottom:0;border-radius:99px;background:linear-gradient(90deg,#14c46f,var(--g));transition:width .6s cubic-bezier(.2,.8,.2,1)}
+.dr .bar .bm{background:linear-gradient(90deg,#9fb5a9,#e6efe9)}
+.verdict{margin-top:11px;padding:9px 11px;border-radius:10px;background:var(--card2);border:1px solid var(--line);display:grid;gap:2px}
+.verdict b{font-family:var(--mono);font-size:12px;color:var(--tx)}
+.verdict span{font-size:12px;color:var(--dim);line-height:1.35}
+.verdict.edge{background:rgba(34,240,138,.1);border-color:rgba(34,240,138,.4)}
+.verdict.edge b{color:var(--g2)}
+.verdict.edge.dn{background:rgba(255,93,108,.1);border-color:rgba(255,93,108,.4)}
+.verdict.edge.dn b{color:#ff9aa4}
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:12px;font-family:var(--mono);font-size:11.5px;color:var(--dim)}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.legend i{display:inline-block;width:18px;height:8px;border-radius:99px}
+.legend .lu{background:var(--g)}.legend .ld{background:rgba(255,93,108,.7)}.legend .lm{background:#cfd9d3}
+.legend .ll{height:0;border-top:1.5px dashed rgba(255,255,255,.6);border-radius:0}
 .spark{display:block;width:100%;height:46px;margin:6px 0 8px}
 .meter{position:relative;height:10px;border-radius:99px;background:rgba(255,93,108,.55);overflow:visible}
 .meter .u{position:absolute;left:0;top:0;bottom:0;border-radius:99px;background:linear-gradient(90deg,#14c46f,var(--g));transition:width .6s cubic-bezier(.2,.8,.2,1)}
@@ -238,6 +264,7 @@ footer .wrap{border-top:1px solid var(--line);padding-top:20px;display:flex;gap:
   .row{grid-template-columns:78px 1fr 58px;gap:8px;padding:11px 12px}
   .row .hide-s{display:none}
   .nav .btn{display:none}
+  .nav .btn-t{display:inline-flex;padding:8px 12px;font-size:12px}
   h1{font-size:34px}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
@@ -257,6 +284,7 @@ footer .wrap{border-top:1px solid var(--line);padding-top:20px;display:flex;gap:
     <a href="#live">Live</a><a href="#markets">Markets</a><a href="#modules">Modules</a><a href="#vs">Engine vs market</a><a href="#feed">Feed</a><a href="#how">How it works</a>
   </nav>
   <span class="live off" id="live"><span class="d"></span><span id="liveTxt">connecting</span></span>
+  <a class="btn btn-t" href="https://app.torchpad.fun/trade/robinhood/0x9c87B4cfa21266d1638f437c96dBe1012CB81111" target="_blank" rel="noopener">Get $ODDS</a>
   <a class="btn btn-g" href="https://public.oddsengine.live">Open app</a>
 </header>
 <div class="ticker" id="ticker" hidden><div class="tk" id="tk"></div></div>
@@ -268,7 +296,7 @@ footer .wrap{border-top:1px solid var(--line);padding-top:20px;display:flex;gap:
 <footer>
   <div class="wrap">
     <div>Tracked picks, not orders. Nothing here is financial advice. Prices from the Polymarket order book, taker fee included. Markets settle on the Chainlink average for the window; the engine tracks it with Hyperliquid prices.</div>
-    <div><a href="https://public.oddsengine.live">App</a> · <a href="https://t.me/OddsEngine">Telegram</a> · <a href="https://x.com/OddsEngine">X</a></div>
+    <div><a href="https://app.torchpad.fun/trade/robinhood/0x9c87B4cfa21266d1638f437c96dBe1012CB81111" target="_blank" rel="noopener">Buy $ODDS on Torch</a> · <a href="https://public.oddsengine.live">App</a> · <a href="https://t.me/OddsEngine">Telegram</a> · <a href="https://x.com/OddsEngine">X</a></div>
   </div>
 </footer>
 
@@ -333,7 +361,7 @@ function soon(){
         <a class="btn" href="https://x.com/OddsEngine">Follow on X</a>
       </div>
     </div>
-    <div class="hero-art hero-vid rv"><video class="hv" src="https://d2ol7oe51mr4n9.cloudfront.net/user_3JTRZAxrDiNnMw8N7r4orqaTziL/29e70b6d-0b9d-4f15-a758-f46d2dfae963.mp4" autoplay muted loop playsinline preload="auto" onplaying="this.classList.add('on')" onerror="this.parentNode.classList.add('fb')"></video><img src="robot.webp" alt="The OddsEngine robot"></div>
+    <div class="hero-art hero-vid rv"><video class="hv" src="https://d2ol7oe51mr4n9.cloudfront.net/user_3JTRZAxrDiNnMw8N7r4orqaTziL/c7c8bf26-0447-43d3-ae86-caab97c8cf15.mp4" autoplay muted loop playsinline preload="auto" onplaying="this.classList.add('on')" onerror="this.parentNode.classList.add('fb')"></video><img src="https://d2ol7oe51mr4n9.cloudfront.net/user_3JTRZAxrDiNnMw8N7r4orqaTziL/d10abc86-e39f-479a-ab5f-1c46248ed7e9.webp" alt="The OddsEngine robot" onerror="this.onerror=null;this.src='robot.webp'"></div>
   </section>
   <section class="soon rv">
     <span class="eyebrow">Coming to the terminal</span>
@@ -355,12 +383,12 @@ function shell(){
       <p class="lead">Seven coins, three timeframes, one question each window: up or down. The engine prices every window on its own and puts its number next to the order book. Five modules pick a side every window, and every result is counted.</p>
       <div class="stats" id="stats"></div>
     </div>
-    <div class="hero-art hero-vid rv"><video class="hv" src="https://d2ol7oe51mr4n9.cloudfront.net/user_3JTRZAxrDiNnMw8N7r4orqaTziL/29e70b6d-0b9d-4f15-a758-f46d2dfae963.mp4" autoplay muted loop playsinline preload="auto" onplaying="this.classList.add('on')" onerror="this.parentNode.classList.add('fb')"></video><img src="robot.webp" alt="The OddsEngine robot"></div>
+    <div class="hero-art hero-vid rv"><video class="hv" src="https://d2ol7oe51mr4n9.cloudfront.net/user_3JTRZAxrDiNnMw8N7r4orqaTziL/c7c8bf26-0447-43d3-ae86-caab97c8cf15.mp4" autoplay muted loop playsinline preload="auto" onplaying="this.classList.add('on')" onerror="this.parentNode.classList.add('fb')"></video><img src="https://d2ol7oe51mr4n9.cloudfront.net/user_3JTRZAxrDiNnMw8N7r4orqaTziL/d10abc86-e39f-479a-ab5f-1c46248ed7e9.webp" alt="The OddsEngine robot" onerror="this.onerror=null;this.src='robot.webp'"></div>
   </section>
 
   <section id="live">
     <div class="sec-h rv"><div><span class="eyebrow"><b>●</b> Engine live</span><h2>Watch it read the window</h2>
-    <p class="sub">The coin's price since the window opened, the start price it has to beat, and the engine's chance for Up in the ring. Updates every few seconds.</p></div></div>
+    <p class="sub">The coin's price since the window opened and the dashed line it has to beat. Ends at or above the line, Up wins. Below it, Down wins. The ring shows the chance for Up that OddsEngine calculates right now. Updates every few seconds.</p></div></div>
     <div class="live-wrap">
       <div class="card lchart">
         <div class="lchart-top"><img id="lcLogo" class="coin" src="coins/btc.png" alt="" width="34" height="34"><div><div class="big" id="lcPx">n/a</div><div class="mono" id="lcSub" style="font-size:12px;color:var(--dim)">loading</div></div>
@@ -375,8 +403,8 @@ function shell(){
           <line id="gMk" x1="110" y1="12" x2="110" y2="40" stroke="#fff" stroke-width="3" stroke-linecap="round" transform="rotate(0 110 110)" style="transition:transform .9s"/>
           <circle cx="110" cy="110" r="64" fill="rgba(0,0,0,.35)"/>
         </svg>
-        <div style="margin-top:-150px;margin-bottom:62px;pointer-events:none"><div class="pv" id="gPv">n/a</div><div class="pl">engine says up</div></div>
-        <div class="row3"><div><span>Market</span><b id="gMkt">n/a</b></div><div><span>Edge</span><b id="gEdge">n/a</b></div><div><span>Closes in</span><b id="gCd">n/a</b></div></div>
+        <div style="margin-top:-150px;margin-bottom:62px;pointer-events:none"><div class="pv" id="gPv">n/a</div><div class="pl">OddsEngine: chance Up</div></div>
+        <div class="row3"><div><span>Polymarket</span><b id="gMkt">n/a</b></div><div><span>Edge</span><b id="gEdge">n/a</b></div><div><span>Closes in</span><b id="gCd">n/a</b></div></div>
       </div>
     </div>
   </section>
@@ -384,7 +412,8 @@ function shell(){
   <section id="markets">
     <div class="sec-h rv">
       <div><span class="eyebrow">Markets</span><h2>Engine against the book</h2>
-      <p class="sub">Green bar is the engine's chance for Up, the white mark is where the market trades. When the engine sees more than the price plus the fee, you get an edge tag.</p></div>
+      <p class="sub">Every window asks one thing: does the coin end at or above the price it started at? Each card shows the price now against that price to beat, then two numbers. What OddsEngine calculates for Up, and what Polymarket traders pay for Up. When the engine sees clearly more than the price plus the fee, the card shows an edge.</p>
+      <div class="legend"><span><i class="ll"></i>Price to beat</span><span><i class="lu"></i>Up</span><span><i class="ld"></i>Down</span><span><i class="lm"></i>Polymarket price for Up</span></div></div>
       <div class="seg" id="seg"><button data-tf="5m">5 min</button><button data-tf="15m" class="on">15 min</button><button data-tf="4h">4 hours</button></div>
     </div>
     <div class="mk-grid" id="grid"></div>
@@ -443,14 +472,14 @@ function fillLive(){
   $('#lcLogo').src='coins/'+LC_A+'.png';
   $('#lcPx').textContent=fmtPx(m.now);
   const d=(m.now&&m.s0)?(m.now/m.s0-1):null;
-  $('#lcSub').innerHTML=`${esc(m.name)} · ${TFNAME[m.tf]} window · start ${fmtPx(m.s0)} · <span class="${d>=0?'up':'dn'}">${d==null?'':(d>=0?'▲ ':'▼ ')+Math.abs(d*100).toFixed(3)+'%'}</span>`;
+  $('#lcSub').innerHTML=`${esc(m.name)} · ${TFNAME[m.tf]} window · to beat ${fmtPx(m.s0)} · <span class="${d>=0?'up':'dn'}">${d==null?'':(d>=0?'▲ ':'▼ ')+Math.abs(d*100).toFixed(3)+'%'}</span>`;
   LC.target=(m.spark||[]).slice(); LC.s0=m.s0; LC.end=m.end; LC.start=m.start;
   if(!LC.pts.length) LC.pts=LC.target.slice();
   const pu=m.p_up; const C=553;
   $('#gArc').setAttribute('stroke-dasharray',(pu==null?0:pu*C).toFixed(1)+' '+C);
   $('#gMk').setAttribute('transform',`rotate(${(m.mid_up==null?0:m.mid_up*360).toFixed(1)} 110 110)`);
   $('#gPv').textContent=pu==null?'n/a':pct(pu);
-  $('#gMkt').textContent=m.mid_up==null?'n/a':cents(m.mid_up);
+  $('#gMkt').textContent=m.mid_up==null?'n/a':cents(m.mid_up)+' Up';
   const e=m.signal&&m.signal.edge>=0.03?m.signal:null;
   $('#gEdge').innerHTML=e?`<span class="${e.side==='up'?'up':'dn'}">${e.side.toUpperCase()} +${Math.round(e.edge*100)}¢</span>`:'none';
 }
@@ -473,7 +502,7 @@ function drawLive(ts){
   const up=P[P.length-1]>=LC.s0, col=up?'34,240,138':'255,93,108';
   // start line
   if(LC.s0!=null){ g.setLineDash([5,6]); g.strokeStyle='rgba(255,255,255,.45)'; g.beginPath(); g.moveTo(0,Y(LC.s0)); g.lineTo(W,Y(LC.s0)); g.stroke(); g.setLineDash([]);
-    g.fillStyle='rgba(255,255,255,.55)'; g.font='11px JetBrains Mono, monospace'; g.fillText('start '+fmtPx(LC.s0),W-118,Y(LC.s0)-6); }
+    g.fillStyle='rgba(255,255,255,.55)'; g.font='11px JetBrains Mono, monospace'; g.fillText('price to beat '+fmtPx(LC.s0),W-190,Y(LC.s0)-6); }
   // area
   const grd=g.createLinearGradient(0,0,0,H); grd.addColorStop(0,`rgba(${col},.30)`); grd.addColorStop(1,`rgba(${col},0)`);
   g.beginPath(); P.forEach((v,i)=>{ i?g.lineTo(X(i),Y(v)):g.moveTo(X(i),Y(v)); }); g.lineTo(X(P.length-1),H); g.lineTo(X(0),H); g.closePath(); g.fillStyle=grd; g.fill();
@@ -538,10 +567,14 @@ function fillGrid(force){
         <div class="mk-name">${esc(m.name)}<small>Up or Down · ${TFNAME[m.tf]}</small></div>
         <div class="clock"><svg width="46" height="46" viewBox="0 0 46 46"><circle cx="23" cy="23" r="19" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="3"/>
           <circle class="arc" cx="23" cy="23" r="19" fill="none" stroke="#22f08a" stroke-width="3" stroke-linecap="round" stroke-dasharray="119.4" stroke-dashoffset="119.4"/></svg><span class="cd">0:00</span></div></div>
-      <div class="px"><span class="now">n/a</span><span class="dl"></span><span class="from"></span></div>
+      <div class="px"><span class="now">n/a</span><span class="dl"></span><span class="state"></span></div>
+      <div class="beat"><span>Price to beat</span><b class="from">n/a</b></div>
       <div class="sp"></div>
-      <div class="meter"><div class="u" style="width:50%"></div><div class="mm" style="left:50%"></div></div>
-      <div class="mrow"><span>Engine <b class="eu">n/a</b> up</span><span>Market <b class="mu">n/a</b></span></div>
+      <div class="duo">
+        <div class="dr"><span class="who">OddsEngine</span><div class="bar"><i class="bu"></i></div><b class="eu">n/a</b></div>
+        <div class="dr"><span class="who">Polymarket</span><div class="bar"><i class="bm"></i></div><b class="mu">n/a</b></div>
+      </div>
+      <div class="verdict"></div>
       <div class="chips"></div>
       <a class="pm" href="https://polymarket.com/event/${encodeURIComponent(m.slug)}" target="_blank" rel="noopener">Trade on Polymarket ↗</a></div>`).join('');
     g.dataset.k=key; spot();
@@ -552,16 +585,23 @@ function fillGrid(force){
     const d= (m.now!=null && m.s0)? (m.now/m.s0-1) : null;
     c.querySelector('.now').textContent=fmtPx(m.now);
     const dl=c.querySelector('.dl'); dl.textContent= d==null?'':(d>=0?'▲ ':'▼ ')+Math.abs(d*100).toFixed(3)+'%'; dl.className='dl '+(d>=0?'up':'dn');
-    c.querySelector('.from').textContent= m.s0? 'start '+fmtPx(m.s0):'';
+    c.querySelector('.from').textContent= m.s0? fmtPx(m.s0):'n/a';
+    const st=c.querySelector('.state');
+    if(d==null){st.textContent='';st.className='state';}
+    else{const ab=d>=0; st.textContent=ab?'Up ahead':'Down ahead'; st.className='state '+(ab?'up':'dn');}
     c.querySelector('.sp').innerHTML=sparkSvg(m.spark,m.s0);
-    const pu=m.p_up; c.querySelector('.u').style.width=(pu==null?50:pu*100)+'%';
-    c.querySelector('.mm').style.left=(m.mid_up==null?50:m.mid_up*100)+'%';
-    c.querySelector('.eu').textContent= pu==null?'n/a':pct(pu);
-    c.querySelector('.mu').textContent= m.mid_up==null?'n/a':cents(m.mid_up)+' up';
-    let chips='';
+    const pu=m.p_up;
+    c.querySelector('.bu').style.width=(pu==null?50:pu*100)+'%';
+    c.querySelector('.bm').style.width=(m.mid_up==null?50:m.mid_up*100)+'%';
+    c.querySelector('.eu').textContent= pu==null?'n/a':pct(pu)+' Up';
+    c.querySelector('.mu').textContent= m.mid_up==null?'n/a':cents(m.mid_up)+' Up';
+    const v=c.querySelector('.verdict');
     if(m.signal && m.signal.edge>=0.03){ const up=m.signal.side==='up';
-      chips+=`<span class="pill edge ${up?'':'dn'}">Edge ${up?'UP':'DOWN'} +${Math.round(m.signal.edge*100)}¢</span>`; }
-    else chips+=`<span class="pill">No edge</span>`;
+      v.className='verdict edge '+(up?'':'dn');
+      v.innerHTML=`<b>Edge ${up?'UP':'DOWN'} +${Math.round(m.signal.edge*100)}¢</b><span>The engine rates ${up?'Up':'Down'} higher than Polymarket sells it, fee included.</span>`; }
+    else { v.className='verdict';
+      v.innerHTML=`<b>No edge</b><span>Engine and Polymarket are close. Nothing to take here.</span>`; }
+    let chips='';
     (m.entries||[]).forEach(e=>{ chips+=`<span class="pill">${esc(modName(e.m))} · ${e.side.toUpperCase()} ${cents(e.price)}</span>`; });
     if(!m.full) chips+=`<span class="pill" title="The engine joined this window late, it is shown but not traded">joined late</span>`;
     c.querySelector('.chips').innerHTML=chips;
@@ -654,6 +694,20 @@ document.addEventListener('click',e=>{
 });
 
 load(); setInterval(load,4000);
+</script>
+<script>
+/* Torch referral: every Torch link first passes our referral, then lands where it pointed */
+(function(){var REF='https://app.torchpad.fun/r/REF026455';
+document.addEventListener('click',function(e){
+  if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
+  var a=e.target&&e.target.closest?e.target.closest('a[href*="app.torchpad.fun"]'):null;if(!a)return;
+  var h=a.href;if(/\/r\/|\/api\//.test(h))return;
+  e.preventDefault();
+  var home=/^https:\/\/app\.torchpad\.fun\/?(\?.*)?$/.test(h);
+  var w=null;try{w=window.open(REF,'_blank');}catch(x){}
+  if(!w){location.href=home?REF:h;return;}
+  if(!home)setTimeout(function(){try{w.location.href=h;}catch(x){}},1800);
+},true);})();
 </script>
 </body>
 </html>
