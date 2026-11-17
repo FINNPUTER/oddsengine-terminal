@@ -959,9 +959,11 @@ function fillOpt(){
   const c1=cal.find(c=>c.hours_before===1), mal=c1&&c1.options_brier>0&&c1.options_brier<c1.market_brier?(c1.market_brier/c1.options_brier):null;
   const big=n=>Number(n).toLocaleString('en-US');
   $('#optRec').innerHTML=`
-    <div><b class="${r?(r.pnl>=0?'up':'dn'):''}">${r?(r.pnl>=0?'+':'-')+'$'+Math.abs(r.pnl).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}):'$0.00'}</b><span>result${r?' on $'+big(Math.round(r.cost))+' staked':''}</span></div>
-    <div><b>${r?big(r.n):0}</b><span>picks settled, every one counted</span></div>
-    <div><b class="${r?(r.roi>=0?'up':'dn'):''}">${r?(r.roi>=0?'+':'')+(r.roi*100).toFixed(1)+'%':'n/a'}</b><span>return on stake, fees included</span></div>
+    <div><b class="${r?(r.pnl>=0?'up':'dn'):''}">${r?(r.pnl>=0?'+':'-')+'$'+Math.abs(r.pnl).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}):'$0.00'}</b><span>result${r?' on '+big(r.n)+' picks, every one counted':''}</span></div>
+    ${(O.capital&&O.capital.start>0)?`<div><b style="font-size:.78em;white-space:nowrap">$${big(Math.round(O.capital.start))} <i style="font-style:normal;opacity:.5">to</i> $${big(Math.round(O.capital.now))}</b><span>start balance to today</span></div>
+    <div><b class="${O.capital.return>=0?'up':'dn'}">${(O.capital.return>=0?'+':'')+Math.round(O.capital.return*100)}%</b><span>return since the start${dz?', '+dz.count+' days':''}</span></div>`
+    :`<div><b>${r?big(r.n):0}</b><span>picks settled, every one counted</span></div>
+    <div><b class="${r?(r.roi>=0?'up':'dn'):''}">${r?(r.roi>=0?'+':'')+(r.roi*100).toFixed(1)+'%':'n/a'}</b><span>result per dollar put in, fees included</span></div>`}
     <div><b>${dz?dz.green+' of '+dz.count:'n/a'}</b><span>days green since day one</span></div>
     <div><b>${mal?mal.toFixed(1)+'x':'collecting'}</b><span>${mal?'closer to the result than the market, 1 hour before close':'accuracy against the market'}</span></div>`;
   drawDays(O.by_day||[], r?r.pnl:null);
