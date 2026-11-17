@@ -323,9 +323,21 @@ a.srow:hover{background:rgba(34,240,138,.05)}
 .opt-rec b{display:block;font-family:var(--mono);font-size:17px;color:var(--tx)}
 .opt-rec span{font-size:12px;color:var(--dim)}
 .opt-top{margin-bottom:12px}
+.opt-rec b{font-size:22px}
+.opt-days{margin-bottom:12px}
+.opt-days,.opt-live,.opt-last,.opt-top{padding:18px 20px}
+.od-bars{display:flex;align-items:flex-end;gap:4px;height:110px;margin-top:10px}
+.od-bars i{flex:1;border-radius:3px 3px 0 0;min-width:3px}
+.od-bars i.u{background:var(--g)} .od-bars i.d{background:var(--red);opacity:.85}
+.od-ax{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;color:var(--dim);margin-top:6px}
+.opt-two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:12px;margin-bottom:12px;align-items:start}
+.opt-live .ol-n{font-family:var(--mono);font-size:64px;line-height:1;color:var(--g);margin:10px 0 2px}
+.opt-live h3{margin:0 0 8px}
+.opt-live .ol-b{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.opt-last .srow .dn{color:var(--red)}
 .vb{font-family:var(--mono);font-size:10.5px;padding:3px 8px;border-radius:99px;border:1px solid var(--line2)}
 .vb.k{color:#8fd3ff;border-color:rgba(143,211,255,.35)} .vb.p{color:#b8a6ff;border-color:rgba(167,139,250,.4)}
-.opt-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:12px}
+.opt-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:12px;align-items:start}
 .oe{padding:15px}
 .oe-h{display:flex;align-items:center;gap:10px}
 .oe-meta{display:flex;gap:16px;flex-wrap:wrap;margin:10px 0 6px;font-family:var(--mono);font-size:11px;color:var(--dim)}
@@ -348,6 +360,7 @@ a.srow:hover{background:rgba(34,240,138,.05)}
   .srow,.sent-split .srow{display:flex;flex-wrap:wrap;gap:6px 12px;font-size:12.5px}
   .srow .gap{margin-left:auto}
   .opt-grid{grid-template-columns:1fr}
+  .opt-two{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -806,11 +819,18 @@ function sentShell(){ return `
   </section>`; }
 function optShell(){ return `
   <section id="above" style="display:none">
-    <div class="sec-h rv"><div><span class="eyebrow"><b>●</b> Above X</span><h2>Options market vs Polymarket and Kalshi</h2>
-    <p class="sub">"Will Bitcoin be above $82,000 on Friday?" Professionals price this exact question on the options market every second. The engine turns Deribit's option prices into a chance for every strike and puts it next to Polymarket and Kalshi. Where the gap beats the price plus the fee, it tracks a pick of 10 shares and settles it on the real result.</p></div></div>
+    <div class="sec-h rv"><div><span class="eyebrow"><b>●</b> Above X</span><h2>The engine against the market</h2>
+    <p class="sub">"Will Bitcoin be above $64,000 at 5pm?" Kalshi and Polymarket trade questions like this all day. The engine works out its own fair price for every one of them. Where the market is off by more than the fee, it tracks a pick of 10 shares at the real price and settles it on the real result. Every pick counts, none is removed.</p></div></div>
     <div class="opt-rec" id="optRec"></div>
-    <div class="card opt-top"><div class="split-h"><h3>Biggest gaps right now</h3><span class="note" id="optUpd"></span></div><div id="optTop"></div></div>
-    <div class="opt-grid" id="optGrid"></div>
+    <div class="card opt-days" id="optDays" style="display:none"></div>
+    <div class="opt-two">
+      <div class="card opt-live" id="optLive"></div>
+      <div class="card opt-last"><div class="split-h"><h3>Latest settled picks</h3><span class="note" id="optUpd"></span></div><div id="optLast"></div></div>
+    </div>
+    <div id="optOp" style="display:none">
+      <div class="card opt-top"><div class="split-h"><h3>Operator view: gaps right now</h3><span class="note">only you see this</span></div><div id="optTop"></div></div>
+      <div class="opt-grid" id="optGrid"></div>
+    </div>
   </section>`; }
 function fillSent(){
   const S=SENT; if(!S||!$('#sentGrid')) return;
@@ -853,30 +873,47 @@ function fillOpt(){
   const sec=$('#above'), nl=document.querySelector('.nav a[href="#above"]');
   if(!O.enabled){ if(sec) sec.style.display='none'; if(nl) nl.style.display='none'; return; }
   if(sec) sec.style.display=''; if(nl) nl.style.display='';
-  const r=(O.record||{}).all;
-  const cal=(O.calibration||[]);
+  const r=(O.record||{}).all, cal=(O.calibration||[]), dz=O.days||null;
+  const c1=cal.find(c=>c.hours_before===1), mal=c1&&c1.options_brier>0&&c1.options_brier<c1.market_brier?(c1.market_brier/c1.options_brier):null;
+  const big=n=>Number(n).toLocaleString('en-US');
   $('#optRec').innerHTML=`
-    <div><b>${r?r.n:0}</b><span>picks settled</span></div>
-    <div><b>${r?pct(r.win_rate,1):'n/a'}</b><span>hit rate</span></div>
-    <div><b class="${r?(r.pnl>=0?'up':'dn'):''}">${r?money(r.pnl):'$0.00'}</b><span>result${r?' on $'+r.cost.toFixed(2)+' staked':''}</span></div>
-    <div><b>${O.open_picks??0}</b><span>picks still open</span></div>
-    <div><b>${cal.length?cal.map(c=>c.options_brier<c.market_brier?'Options':'Market').join(' · '):'collecting'}</b><span>${cal.length?'more accurate at '+cal.map(c=>c.hours_before+'h').join(' · ')+' before close':'who is more accurate'}</span></div>`;
+    <div><b class="${r?(r.pnl>=0?'up':'dn'):''}">${r?(r.pnl>=0?'+':'-')+'$'+Math.abs(r.pnl).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}):'$0.00'}</b><span>result${r?' on $'+big(Math.round(r.cost))+' staked':''}</span></div>
+    <div><b>${r?big(r.n):0}</b><span>picks settled, every one counted</span></div>
+    <div><b class="${r?(r.roi>=0?'up':'dn'):''}">${r?(r.roi>=0?'+':'')+(r.roi*100).toFixed(1)+'%':'n/a'}</b><span>return on stake, fees included</span></div>
+    <div><b>${dz?dz.green+' of '+dz.count:'n/a'}</b><span>days green since day one</span></div>
+    <div><b>${mal?mal.toFixed(1)+'x':'collecting'}</b><span>${mal?'closer to the result than the market, 1 hour before close':'accuracy against the market'}</span></div>`;
+  const bd=O.by_day||[], dEl=$('#optDays');
+  if(dEl){ if(bd.length>1){ const mx=Math.max(1,...bd.map(d=>Math.abs(d.pnl)));
+      dEl.style.display=''; dEl.innerHTML=`<div class="split-h"><h3>Day by day</h3><span class="note">last ${bd.length} days, UTC</span></div><div class="od-bars">${bd.map(d=>`<i title="${esc(d.day)}: ${money(d.pnl)}" class="${d.pnl>=0?'u':'d'}" style="height:${Math.max(4,Math.round(Math.abs(d.pnl)/mx*100))}%"></i>`).join('')}</div><div class="od-ax"><span>${esc(bd[0].day.slice(5))}</span><span>${esc(bd[bd.length-1].day.slice(5))}</span></div>`; }
+    else dEl.style.display='none'; }
   const ago=O.updated?Math.round((Date.now()/1000-O.updated)/60):null;
   $('#optUpd').textContent=ago==null?'':'updated '+(ago<1?'just now':ago+' min ago');
   const venue=v=>v==='kalshi'?'<span class="vb k">Kalshi</span>':'<span class="vb p">Polymarket</span>';
   const kfmt=k=>'$'+Math.round(k).toLocaleString('en-US');
   const tleft=h=>h<1?Math.round(h*60)+' min':h<48?h.toFixed(h<10?1:0)+' h':(h/24).toFixed(1)+' days';
+  const lg=O.operator?(O.top||[]).length:(O.live_gaps||0);
+  $('#optLive').innerHTML=`<span class="eyebrow"><b>●</b> Live</span><div class="ol-n">${lg}</div><h3>${lg===1?'gap is':'gaps are'} open right now</h3>
+    <p class="note">${O.open_picks??0} picks are running. The live calls go to $ODDS holders: in the holder channel, and in Auto mode the engine buys them for you in your own Kalshi account.</p>
+    <div class="ol-b"><a class="btn btn-g" href="https://public.oddsengine.live">Open app</a><a class="btn btn-t" href="https://app.torchpad.fun/trade/robinhood/0x9c87B4cfa21266d1638f437c96dBe1012CB81111" target="_blank" rel="noopener">Get $ODDS</a></div>`;
+  const rc=O.recent||[];
+  $('#optLast').innerHTML=rc.length? rc.slice(0,9).map(t=>`<div class="srow">${logo(t.coin,'sm')}${venue(t.venue)}
+     <span>${t.coin.toUpperCase()} above <b>${kfmt(t.K)}</b></span>
+     <span>${t.side==='yes'?'Yes':'No'} at <b>${cents(t.price)}</b></span>
+     <span class="gap ${t.won?'up':'dn'}">${t.won?'won ':'lost '}${money(t.pnl)}</span></div>`).join('')
+     : '<div class="empty">The first picks are still running.</div>';
+  const op=$('#optOp'); if(op) op.style.display=O.operator?'':'none';
+  if(!O.operator) return;
   const top=O.top||[];
   $('#optTop').innerHTML=top.length? top.map(t=>`<a class="srow" href="${esc(t.url||'#')}" target="_blank" rel="noopener">${logo(t.coin,'sm')}${venue(t.venue)}
      <span>${t.coin.toUpperCase()} above <b>${kfmt(t.K)}</b> · ${tleft(t.tau_h)}</span>
-     <span>Options <b>${pct(t.side==='yes'?t.p:1-t.p)}</b> ${t.side==='yes'?'Yes':'No'}</span>
+     <span>Engine <b>${pct(t.side==='yes'?t.p:1-t.p)}</b> ${t.side==='yes'?'Yes':'No'}</span>
      <span>Market <b>${cents(t.side==='yes'?t.yes_ask:t.no_ask)}</b></span>
      <span class="gap up">+${Math.round(t.edge*100)}¢</span></a>`).join('')
-     : '<div class="empty">No gap bigger than the fee right now. That is the normal case: most of the time the markets agree with the options market.</div>';
+     : '<div class="empty">No gap bigger than the fee right now.</div>';
   $('#optGrid').innerHTML=(O.events||[]).slice(0,8).map(g=>`<div class="card oe">
-     <div class="oe-h">${logo(g.coin,'')}<div class="mk-name">${esc(g.title||'')}<small>${g.venue==='kalshi'?'Kalshi':'Polymarket'} · settles in ${tleft(g.tau_h)} · ${g.source==='binance_usdt'?'Binance BTC/USDT':'CF Benchmarks index'}</small></div></div>
-     <div class="oe-meta"><span>Options volatility <b>${pct(g.iv)}</b></span><span>Forward <b>${fmtPx(g.fwd)}</b></span></div>
-     <div class="oe-t"><div class="oe-r hd"><span>Above</span><span>Options</span><span>Market</span><span>Gap</span></div>
+     <div class="oe-h">${logo(g.coin,'')}<div class="mk-name">${esc(g.title||'')}<small>${g.venue==='kalshi'?'Kalshi':'Polymarket'} · settles in ${tleft(g.tau_h)}</small></div></div>
+     <div class="oe-meta"><span>Volatility <b>${pct(g.iv)}</b></span><span>Forward <b>${fmtPx(g.fwd)}</b></span></div>
+     <div class="oe-t"><div class="oe-r hd"><span>Above</span><span>Engine</span><span>Market</span><span>Gap</span></div>
      ${g.rows.slice(0,9).map(x=>{const ey=x.edge_yes??-1,en=x.edge_no??-1;const best=Math.max(ey,en);
        return `<div class="oe-r"><span class="mono">${kfmt(x.K)}</span><span><i class="pbar"><i style="width:${(x.p||0)*100}%"></i></i>${pct(x.p)}</span><span>${cents(x.mid)}</span>
        <span class="${best>=(O.edge||.05)?'gap up':'mute'}">${best>=(O.edge||.05)?(ey>=en?'Yes ':'No ')+'+'+Math.round(best*100)+'¢':'none'}</span></div>`;}).join('')}
