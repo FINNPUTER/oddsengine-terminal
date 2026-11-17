@@ -250,6 +250,9 @@ footer .wrap{border-top:1px solid var(--line);padding-top:20px;display:flex;gap:
 .gauge{padding:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:6px}
 .gauge svg{width:min(240px,70vw);height:auto;overflow:visible}
 .gauge .pv{font-family:var(--disp);font-weight:800;font-size:44px;letter-spacing:-.02em}
+.gauge .g-pv{font-family:var(--disp);font-weight:800;font-size:44px;letter-spacing:-1px;fill:var(--tx)}
+.gauge .g-top{font-family:var(--mono);font-size:8px;letter-spacing:2.4px;fill:var(--dim2)}
+.gauge .g-sub{font-family:var(--mono);font-size:8.5px;letter-spacing:2px;fill:var(--g)}
 .gauge .pl{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim2)}
 .gauge .row3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;width:100%;margin-top:10px}
 .gauge .row3 div{padding:9px 6px;border-radius:12px;background:var(--card);border:1px solid var(--line);font-family:var(--mono);font-size:13px}
@@ -324,12 +327,39 @@ a.srow:hover{background:rgba(34,240,138,.05)}
 .opt-rec span{font-size:12px;color:var(--dim)}
 .opt-top{margin-bottom:12px}
 .opt-rec b{font-size:22px}
-.opt-days{margin-bottom:12px}
-.opt-days,.opt-live,.opt-last,.opt-top{padding:18px 20px}
-.od-bars{display:flex;align-items:flex-end;gap:4px;height:110px;margin-top:10px}
-.od-bars i{flex:1;border-radius:3px 3px 0 0;min-width:3px}
-.od-bars i.u{background:var(--g)} .od-bars i.d{background:var(--red);opacity:.85}
-.od-ax{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;color:var(--dim);margin-top:6px}
+.opt-live,.opt-last,.opt-top{padding:18px 20px}
+.opt-days{padding:22px 24px 18px;margin-bottom:12px}
+.od-h{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
+.od-h h3{margin:0 0 2px}
+.od-k{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--dim)}
+.od-k span{display:inline-flex;align-items:center;gap:7px}
+.od-k i{display:inline-block;width:10px;height:10px;border-radius:3px}
+.od-k i.l{height:2px;width:16px;border-radius:2px;background:var(--g)} .od-k i.u{background:var(--g)} .od-k i.d{background:var(--red)}
+.od-plot{position:relative;margin-top:18px;padding-left:58px;padding-right:74px;cursor:crosshair;user-select:none}
+.od-top{position:relative;height:210px}
+.od-top svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.od-g{position:absolute;left:0;right:0;height:0;border-top:1px dashed rgba(255,255,255,.07)}
+.od-g.z{border-top:1px solid rgba(255,255,255,.16)}
+.od-y{position:absolute;left:0;top:0;width:50px;height:210px}
+.od-y span{position:absolute;right:0;transform:translateY(-50%);font-family:var(--mono);font-size:11px;color:var(--dim2)}
+.od-dot{position:absolute;width:11px;height:11px;margin:-5.5px 0 0 -5.5px;border-radius:50%;background:var(--g);box-shadow:0 0 0 4px rgba(34,240,138,.18),0 0 18px rgba(34,240,138,.7)}
+.od-tag{position:absolute;right:-70px;transform:translateY(-50%);font-style:normal;font-family:var(--mono);font-size:12px;font-weight:700;color:#02130a;background:var(--g);padding:3px 7px;border-radius:7px;white-space:nowrap}
+.od-bot{position:relative;height:66px;margin-top:16px}
+.od-z{position:absolute;left:0;right:0;height:0;border-top:1px solid rgba(255,255,255,.14)}
+.od-b{position:absolute;display:block}
+.od-b u{display:block;height:100%;margin:0 16%;text-decoration:none;border-radius:3px}
+.od-b.u u{background:linear-gradient(180deg,var(--g),rgba(34,240,138,.45))} .od-b.d u{background:linear-gradient(180deg,rgba(255,93,108,.5),var(--red))}
+.od-x{position:relative;height:18px;margin-top:8px}
+.od-x span{position:absolute;transform:translateX(-50%);font-family:var(--mono);font-size:11px;color:var(--dim2);white-space:nowrap}
+.od-cur{position:absolute;top:0;bottom:26px;width:0;border-left:1px solid rgba(255,255,255,.28);opacity:0;pointer-events:none;transition:opacity .15s}
+.od-tip{position:absolute;top:-6px;transform:translateX(-50%);opacity:0;pointer-events:none;transition:opacity .15s;background:rgba(8,14,11,.96);border:1px solid var(--line2);border-radius:12px;padding:9px 12px;font-size:12px;min-width:128px;box-shadow:0 12px 30px rgba(0,0,0,.5);z-index:2}
+.od-tip b{display:block;font-family:var(--mono);font-size:11px;color:var(--dim);margin-bottom:5px;font-weight:500}
+.od-tip span{display:flex;justify-content:space-between;gap:14px;color:var(--dim)} .od-tip em{font-style:normal;font-family:var(--mono);color:var(--tx)}
+.od-tip .up{color:var(--g)} .od-tip .dn{color:var(--red)}
+.od-f{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+.od-f span{font-size:12px;color:var(--dim)} .od-f b{display:block;font-family:var(--mono);font-size:15px;color:var(--tx);margin-top:2px}
+.od-f .up{color:var(--g)} .od-f .dn{color:var(--red)}
+@media(max-width:720px){.od-plot{padding-left:44px;padding-right:8px}.od-y{width:38px}.od-tag{right:auto;left:8px;top:8px!important;transform:none}.od-top,.od-y{height:170px}.od-f{grid-template-columns:1fr 1fr}.od-k{display:none}}
 .opt-two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:12px;margin-bottom:12px;align-items:start}
 .opt-live .ol-n{font-family:var(--mono);font-size:64px;line-height:1;color:var(--g);margin:10px 0 2px}
 .opt-live h3{margin:0 0 8px}
@@ -496,9 +526,11 @@ function shell(){
           <circle cx="110" cy="110" r="88" fill="none" stroke="rgba(255,93,108,.35)" stroke-width="16"/>
           <circle id="gArc" cx="110" cy="110" r="88" fill="none" stroke="#22f08a" stroke-width="16" stroke-linecap="round" stroke-dasharray="0 553" transform="rotate(-90 110 110)" filter="url(#gl)" style="transition:stroke-dasharray .9s cubic-bezier(.2,.8,.2,1)"/>
           <line id="gMk" x1="110" y1="12" x2="110" y2="40" stroke="#fff" stroke-width="3" stroke-linecap="round" transform="rotate(0 110 110)" style="transition:transform .9s"/>
-          <circle cx="110" cy="110" r="64" fill="rgba(0,0,0,.35)"/>
+          <circle cx="110" cy="110" r="70" fill="rgba(0,0,0,.35)"/>
+          <text x="110" y="76" text-anchor="middle" class="g-top">ODDSENGINE</text>
+          <text x="110" y="124" text-anchor="middle" class="g-pv" id="gPv">n/a</text>
+          <text x="110" y="148" text-anchor="middle" class="g-sub">CHANCE FOR UP</text>
         </svg>
-        <div style="margin-top:-150px;margin-bottom:62px;pointer-events:none"><div class="pv" id="gPv">n/a</div><div class="pl">OddsEngine: chance Up</div></div>
         <div class="row3"><div><span>Polymarket</span><b id="gMkt">n/a</b></div><div><span>Edge</span><b id="gEdge">n/a</b></div><div><span>Closes in</span><b id="gCd">n/a</b></div></div>
       </div>
     </div>
@@ -868,6 +900,56 @@ function fillSent(){
      <span class="gap ${x.gap>=0?'up':'dn'}">${x.gap>=0?'+':''}${Math.round(x.gap*100)} pts</span></div>`).join('')
      : '<div class="empty">No open windows right now.</div>';
 }
+function drawDays(bd,total){
+  const el=$('#optDays'); if(!el) return;
+  if(bd.length<2){ el.style.display='none'; return; }
+  el.style.display='';
+  const m2=v=>(v>=0?'+':'-')+'$'+Math.abs(v).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+  const m0=v=>(v<0?'-':'')+'$'+Math.abs(Math.round(v)).toLocaleString('en-US');
+  const dl=d=>{const t=new Date(d+'T00:00:00Z'); return t.toLocaleDateString('en-US',{month:'short',day:'numeric',timeZone:'UTC'});};
+  /* Verlauf: der Endstand ist die Gesamtbilanz, davon rueckwaerts */
+  const sum=bd.reduce((a,d)=>a+d.pnl,0), end=total==null?sum:total; let c=end-sum;
+  const pts=bd.map(d=>{ c+=d.pnl; return {day:d.day,pnl:d.pnl,cum:c}; });
+  const n=pts.length, start=end-sum;
+  let lo=Math.min(start,...pts.map(p=>p.cum)), hi=Math.max(start,...pts.map(p=>p.cum));
+  const step=[50,100,200,250,500,1000,2000,2500,5000,10000].find(x=>(hi-lo)/x<=6.5)||20000;
+  lo=Math.floor(lo/step)*step; hi=Math.ceil(hi/step)*step; if(hi===lo) hi=lo+step;
+  const X=i=>(i+.5)/n*100, Y=v=>(1-(v-lo)/(hi-lo))*100;
+  const line=pts.map((p,i)=>(i?'L':'M')+X(i).toFixed(2)+' '+Y(p.cum).toFixed(2)).join(' ');
+  const area=line+` L${X(n-1).toFixed(2)} 100 L${X(0).toFixed(2)} 100 Z`;
+  const ticks=[]; for(let v=lo;v<=hi+1e-9;v+=step) ticks.push(v);
+  const mp=Math.max(0,...pts.map(p=>p.pnl)), mn=Math.max(0,...pts.map(p=>-p.pnl)), zero=mp+mn?mp/(mp+mn)*100:50;
+  const best=pts.reduce((a,b)=>b.pnl>a.pnl?b:a), worst=pts.reduce((a,b)=>b.pnl<a.pnl?b:a), gr=pts.filter(p=>p.pnl>0).length;
+  const ev=Math.max(1,Math.round(n/(window.innerWidth<720?3:6)));
+  el.innerHTML=`
+    <div class="od-h"><div><h3>Day by day</h3><span class="note">every pick, settled, fees included · UTC</span></div>
+      <div class="od-k"><span><i class="l"></i>Total since day one</span><span><i class="u"></i>Green day</span><span><i class="d"></i>Red day</span></div></div>
+    <div class="od-plot" id="odPlot">
+      <div class="od-y">${ticks.map(v=>`<span style="top:${Y(v).toFixed(2)}%">${m0(v)}</span>`).join('')}</div>
+      <div class="od-top">
+        ${ticks.map(v=>`<i class="od-g${v===0?' z':''}" style="top:${Y(v).toFixed(2)}%"></i>`).join('')}
+        <svg viewBox="0 0 100 100" preserveAspectRatio="none"><defs><linearGradient id="odF" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#22f08a" stop-opacity=".30"/><stop offset="1" stop-color="#22f08a" stop-opacity="0"/></linearGradient></defs>
+          <path d="${area}" fill="url(#odF)"/><path d="${line}" fill="none" stroke="#22f08a" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg>
+        <b class="od-dot" style="left:${X(n-1).toFixed(2)}%;top:${Y(pts[n-1].cum).toFixed(2)}%"></b>
+        <em class="od-tag" style="top:${Y(pts[n-1].cum).toFixed(2)}%">${m2(pts[n-1].cum)}</em>
+      </div>
+      <div class="od-bot"><i class="od-z" style="top:${zero.toFixed(2)}%"></i>
+        ${pts.map((p,i)=>{const h=p.pnl>=0?(mp?p.pnl/mp*zero:0):(mn?-p.pnl/mn*(100-zero):0);
+          return `<i class="od-b ${p.pnl>=0?'u':'d'}" style="left:${(i/n*100).toFixed(2)}%;width:${(100/n).toFixed(2)}%;${p.pnl>=0?'bottom:'+(100-zero).toFixed(2)+'%':'top:'+zero.toFixed(2)+'%'};height:${Math.max(1.5,h).toFixed(2)}%"><u></u></i>`;}).join('')}
+      </div>
+      <div class="od-x">${pts.map((p,i)=>(i%ev===0||i===n-1)&&!(i!==n-1&&n-1-i<ev*.6)?`<span style="left:${X(i).toFixed(2)}%">${esc(dl(p.day))}</span>`:'').join('')}</div>
+      <i class="od-cur" id="odCur"></i><div class="od-tip" id="odTip"></div>
+    </div>
+    <div class="od-f"><span>Best day <b class="up">${m2(best.pnl)}</b></span><span>Toughest day <b class="${worst.pnl<0?'dn':'up'}">${m2(worst.pnl)}</b></span><span>Green days <b>${gr} of ${n}</b></span><span>Average day <b class="${sum>=0?'up':'dn'}">${m2(sum/n)}</b></span></div>`;
+  const plot=$('#odPlot'), cur=$('#odCur'), tip=$('#odTip'), top=plot.querySelector('.od-top');
+  const mv=e=>{ const r=top.getBoundingClientRect(), pr=plot.getBoundingClientRect(); const cx=(e.touches?e.touches[0].clientX:e.clientX);
+    const i=Math.max(0,Math.min(n-1,Math.floor((cx-r.left)/r.width*n))); const p=pts[i], x=r.left-pr.left+r.width*X(i)/100;
+    cur.style.left=x+'px'; cur.style.opacity=1; tip.style.opacity=1;
+    tip.innerHTML=`<b>${esc(dl(p.day))}</b><span>Day <em class="${p.pnl>=0?'up':'dn'}">${m2(p.pnl)}</em></span><span>Total <em>${m2(p.cum)}</em></span>`;
+    tip.style.left=Math.max(70,Math.min(pr.width-70,x))+'px'; };
+  const out=()=>{ cur.style.opacity=0; tip.style.opacity=0; };
+  plot.onmousemove=mv; plot.onmouseleave=out; plot.ontouchstart=mv; plot.ontouchmove=mv; plot.ontouchend=out;
+}
 function fillOpt(){
   const O=OPT; if(!O||!$('#optGrid')) return;
   const sec=$('#above'), nl=document.querySelector('.nav a[href="#above"]');
@@ -882,10 +964,7 @@ function fillOpt(){
     <div><b class="${r?(r.roi>=0?'up':'dn'):''}">${r?(r.roi>=0?'+':'')+(r.roi*100).toFixed(1)+'%':'n/a'}</b><span>return on stake, fees included</span></div>
     <div><b>${dz?dz.green+' of '+dz.count:'n/a'}</b><span>days green since day one</span></div>
     <div><b>${mal?mal.toFixed(1)+'x':'collecting'}</b><span>${mal?'closer to the result than the market, 1 hour before close':'accuracy against the market'}</span></div>`;
-  const bd=O.by_day||[], dEl=$('#optDays');
-  if(dEl){ if(bd.length>1){ const mx=Math.max(1,...bd.map(d=>Math.abs(d.pnl)));
-      dEl.style.display=''; dEl.innerHTML=`<div class="split-h"><h3>Day by day</h3><span class="note">last ${bd.length} days, UTC</span></div><div class="od-bars">${bd.map(d=>`<i title="${esc(d.day)}: ${money(d.pnl)}" class="${d.pnl>=0?'u':'d'}" style="height:${Math.max(4,Math.round(Math.abs(d.pnl)/mx*100))}%"></i>`).join('')}</div><div class="od-ax"><span>${esc(bd[0].day.slice(5))}</span><span>${esc(bd[bd.length-1].day.slice(5))}</span></div>`; }
-    else dEl.style.display='none'; }
+  drawDays(O.by_day||[], r?r.pnl:null);
   const ago=O.updated?Math.round((Date.now()/1000-O.updated)/60):null;
   $('#optUpd').textContent=ago==null?'':'updated '+(ago<1?'just now':ago+' min ago');
   const venue=v=>v==='kalshi'?'<span class="vb k">Kalshi</span>':'<span class="vb p">Polymarket</span>';
